@@ -6,7 +6,7 @@ use parent qw(Exporter Digest::base);
 
 use MIME::Base64 ();
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 $VERSION = eval $VERSION;
 
 eval {
@@ -50,6 +50,14 @@ sub shabal_512_base64 {
     my $b64 = MIME::Base64::encode(shabal_512(@_), '');
     $b64 =~ s/=+$//g;
     return $b64;
+}
+
+sub add_bits {
+    my ($self, $data, $bits) = @_;
+    if (2 == @_) {
+        return $self->_add_bits(pack('B*', $data), length $data);
+    }
+    return $self->_add_bits($data, $bits);
 }
 
 
@@ -150,7 +158,8 @@ Returns the algorithm used by the object.
 L<Digest>
 
 L<http://www.shabal.com/>
-L<http://en.wikimedia.org/wikipedia/en/wiki/SHA-3>
+
+L<http://en.wikipedia.org/wiki/NIST_hash_function_competition>
 
 L<http://www.saphir2.com/sphlib/>
 
