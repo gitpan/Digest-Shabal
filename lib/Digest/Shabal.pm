@@ -6,7 +6,7 @@ use parent qw(Exporter Digest::base);
 
 use MIME::Base64 ();
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 $VERSION = eval $VERSION;
 
 eval {
@@ -24,33 +24,6 @@ our @EXPORT_OK = qw(
     shabal_384 shabal_384_hex shabal_384_base64
     shabal_512 shabal_512_hex shabal_512_base64
 );
-
-# TODO: convert to C.
-sub shabal_224_hex  { unpack 'H*', shabal_224(@_) }
-sub shabal_256_hex  { unpack 'H*', shabal_256(@_) }
-sub shabal_384_hex  { unpack 'H*', shabal_384(@_) }
-sub shabal_512_hex  { unpack 'H*', shabal_512(@_) }
-
-sub shabal_224_base64 {
-    my $b64 = MIME::Base64::encode(shabal_224(@_), '');
-    $b64 =~ s/=+$//g;
-    return $b64;
-}
-sub shabal_256_base64 {
-    my $b64 = MIME::Base64::encode(shabal_256(@_), '');
-    $b64 =~ s/=+$//g;
-    return $b64;
-}
-sub shabal_384_base64 {
-    my $b64 = MIME::Base64::encode(shabal_384(@_), '');
-    $b64 =~ s/=+$//g;
-    return $b64;
-}
-sub shabal_512_base64 {
-    my $b64 = MIME::Base64::encode(shabal_512(@_), '');
-    $b64 =~ s/=+$//g;
-    return $b64;
-}
 
 sub add_bits {
     my ($self, $data, $bits) = @_;
@@ -75,8 +48,8 @@ Digest::Shabal - Perl interface to the Shabal digest algorithm
     use Digest::Shabal qw(shabal_256 shabal_256_hex shabal_256_base64);
 
     $digest = shabal_256($data);
-    $digest = shabal_hex_256($data);
-    $digest = shabal_base64_256($data);
+    $digest = shabal_256_hex($data);
+    $digest = shabal_256_base64($data);
 
     # Object-oriented interface
     use Digest::Shabal;
@@ -156,6 +129,8 @@ Returns the algorithm used by the object.
 =head1 SEE ALSO
 
 L<Digest>
+
+L<Task::Digest>
 
 L<http://www.shabal.com/>
 

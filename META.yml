@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:               Digest-Shabal
-version:            0.03
+version:            0.04
 abstract:           Perl interface to the Shabal digest algorithm
 author:
     - gray <gray@cpan.org>
